@@ -56,12 +56,20 @@ urlinfo_t *parse_url(char *url)
   }
 
   slash = strchr(hostname, '/');
-  path = slash + 1;
-  *slash = '\0';
+  if (slash) {
+    path = slash + 1;
+    *slash = '\0';
+  } else {
+    path = "/";
+  }
 
   colon = strchr(hostname, ':');
-  port = colon + 1;
-  *colon = '\0';
+  if (colon) {
+    port = colon + 1;
+    *colon = '\0';
+  } else {
+    port = "80";
+  }
 
   urlinfo->hostname = hostname;
   urlinfo->port = port;
