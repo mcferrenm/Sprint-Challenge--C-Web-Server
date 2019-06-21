@@ -28,9 +28,11 @@ typedef struct urlinfo_t {
 urlinfo_t *parse_url(char *url)
 {
   // copy the input URL so as not to mutate the original
-  char *hostname = strdup(url);
+  char *hostname;
   char *port;
   char *path;
+  char *slash;
+  char *colon;
 
   urlinfo_t *urlinfo = malloc(sizeof(urlinfo_t));
 
@@ -45,9 +47,27 @@ urlinfo_t *parse_url(char *url)
     6. Overwrite the colon with a '\0' so that we are just left with the hostname.
   */
 
-  ///////////////////
-  // IMPLEMENT ME! //
-  ///////////////////
+  if (strstr(url, "https://")) {
+    hostname = strdup(url + 8);
+  } else if (strstr(url, "http://")) {
+    hostname = strdup(url + 7);
+  } else {
+    hostname = strdup(url);
+  }
+
+  slash = strchr(hostname, '/');
+  path = slash + 1;
+  *slash = '\0';
+
+  colon = strchr(hostname, ':');
+  port = colon + 1;
+  *colon = '\0';
+
+  printf("%s, %s, %s\n", hostname, path, port);
+
+  urlinfo->hostname = hostname;
+  urlinfo->port = port;
+  urlinfo->path = path;
 
   return urlinfo;
 }
@@ -93,9 +113,7 @@ int main(int argc, char *argv[])
     5. Clean up any allocated memory and open file descriptors.
   */
 
-  ///////////////////
-  // IMPLEMENT ME! //
-  ///////////////////
+  parse_url(argv[1]);
 
   return 0;
 }

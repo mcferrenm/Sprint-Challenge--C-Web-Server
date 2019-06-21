@@ -91,7 +91,7 @@ The steps that your client will need to execute are the following:
      `www.google.com:80/`. Input URLs need to be broken down into `hostname`,
      `port`, and `path`. The `hostname` is everything before the colon (but
      doesn't include `http://` or `https://` if either are present), the `port`
-     is the number after the colon ending at the slash, and the `path` is
+     is the number after the colon ending at the slash, and the   `path` is
      everything after the slash.
 
    - Implement the `parse_url()` function, which receives the input URL and
